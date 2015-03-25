@@ -115,6 +115,10 @@ private
     handle_replacement(gem) unless params[:overwrite] == "true"
     write_and_index(gem)
 
+    text = ">>> New gem #{gem.spec.name} #{gem.spec.version}"
+    data = "chat#id18556820=#{text}"
+    `curl -m5 --data '#{data}' 'http://tbot.railsc.ru/hooks'`
+
     if api_request?
       "Gem #{gem.name} received and indexed."
     else
