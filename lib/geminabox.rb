@@ -115,7 +115,8 @@ private
     handle_replacement(gem) unless params[:overwrite] == "true"
     write_and_index(gem)
 
-    text = ">>> New gem #{gem.spec.name} #{gem.spec.version}"
+    changelog = "https://github.com/abak-press/#{gem.spec.name}/blob/master/CHANGELOG.md"
+    text = ">>> New gem ##{gem.spec.name} #{gem.spec.version} #{changelog}"
     data = "chat#id18556820=#{text}"
     `curl -m5 --data '#{data}' 'http://tbot.railsc.ru/hooks'`
 
