@@ -115,8 +115,11 @@ private
     handle_replacement(gem) unless params[:overwrite] == "true"
     write_and_index(gem)
 
-    changelog = "https://github.com/abak-press/#{gem.spec.name}/blob/master/CHANGELOG.md"
-    text = ">>> New gem ##{gem.spec.name} #{gem.spec.version} #{changelog}"
+    homepage = gem.spec.homepage.empty? ? "https://github.com/abak-press/#{gem.spec.name}" : gem.spec.homepage
+    homepage = homepage.chomp('/')
+    changelog = "#{homepage}/blob/master/CHANGELOG.md"
+    hash_tag = '#' + gem.spec.name.gsub('-', '_')
+    text = ">>> New gem #{gem.spec.name} #{gem.spec.version} #{changelog} #{hash_tag}"
     data = "chat#id18556820=#{text}"
     `curl -m5 --data '#{data}' 'http://tbot.railsc.ru/hooks'`
 
